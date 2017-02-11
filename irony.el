@@ -839,6 +839,24 @@ symbol:
           (number-to-string line)
           (number-to-string column)))))))
 
+(defun irony--diagnostics-handler (response)
+  (if response
+      (message "%s" response)
+    (message "No diagnostic response")))
+
+(defun irony-parse ()
+  "Parse the current buffer."
+  (interactive)
+  (irony--send-parse-request "parse"
+                             (list (lambda (response)
+                                     (message "Parse response %s" response)))))
+
+
+(defun irony-diagnostics ()
+  "Print diagnostic information."
+  (interactive)
+  (irony--send-request "diagnostics" (list #'irony--diagnostics-handler)))
+
 (provide 'irony)
 
 ;; Local Variables:
