@@ -719,7 +719,8 @@ care of."
         (process-send-string process
                              (format "%s\n%s\n%s\n%d\n%s\n"
                                      (combine-and-quote-strings argv)
-                                     (combine-and-quote-strings compile-options)
+                                     ;; (combine-and-quote-strings compile-options)
+                                     (mapconcat #'identity compile-options " ")
                                      buffer-file-name
                                      (irony--buffer-size-in-bytes)
                                      (buffer-substring (point-min) (point-max))))))))
